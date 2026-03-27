@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Python Journey | Lesson 02</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        :root {
+            --primary-blue: #306998; 
+            --primary-yellow: #FFE873;
+            --dark-bg: #1e1e1e;
+            --card-bg: #2d2d2d;
+            --text-light: #f8f9fa;
+            --text-muted: #a0a0a0;
+            --accent-purple: #6366f1;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        .checkout-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid #444;
+        }
+
+        /* Exercise Styles */
+        .exercise-header { color: var(--primary-yellow); margin-bottom: 5px; }
+        .code-block {
+            background: #1a1a1a;
+            border: 1px dashed #666;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', Courier, monospace;
+            border-radius: 4px;
+            color: #dcdcdc;
+        }
+
+        /* Navigation Buttons */
+        .nav-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            flex: 1;
+        }
+
+        .btn-prev { background: #444; color: white; }
+        .btn-next { background: var(--primary-blue); color: white; }
+        .btn-submit { background: #4CAF50; color: white; }
+
+        /* Help/Tip Section */
+        .help-section {
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 4px solid var(--accent-purple);
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.85rem;
+        }
+
+        .help-section h4 { margin: 0 0 5px 0; color: var(--accent-purple); }
+
+        /* Modal Logic */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; }
+        .modal-content { background: var(--card-bg); padding: 30px; border-radius: 12px; max-width: 500px; width: 80%; border: 1px solid #555; text-align: left; }
+        .close-btn { float: right; cursor: pointer; font-size: 24px; color: var(--text-muted); }
+        .policy-link { color: var(--primary-yellow); text-decoration: underline; cursor: pointer; margin-top: 20px; display: block; text-align: center; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+    <div class="checkout-card">
+        <h2 class="exercise-header">02. List Comprehensions</h2>
+        <p>Create a concise list that squares every even number in a range of 10.</p>
+
+        <div class="code-block">squares = [x**2 for x in range(10) if x % 2 == 0]</div>
+
+        <div class="help-section">
+            <h4>💡 Python Tip</h4>
+            <p>List comprehensions are evaluated from left to right. The <code>if</code> condition filters the <code>iterable</code> before the <code>expression</code> is applied.</p>
+        </div>
+
+        <div class="nav-group">
+            <button class="btn btn-prev" onclick="alert('Going to Section 01...')">Previous</button>
+            <button class="btn btn-submit" onclick="alert('Logic Checked!')">Submit Answer</button>
+            <button class="btn btn-next" onclick="alert('Loading Lesson 03...')">Next</button>
+        </div>
+
+        <form action="/create-checkout-session" method="POST" style="margin-top:20px;">
+            <input type="hidden" name="lookup_key" value="{{PRICE_LOOKUP_KEY}}" />
+            <button type="submit" style="width:100%; background: var(--accent-purple); color:white; border:none; padding:12px; border-radius:6px; cursor:pointer; font-weight:bold;">
+                Unlock Full Certification ($20/mo)
+            </button>
+        </form>
+
+        <span class="policy-link" onclick="openModal()">View Subscription Policies</span>
+    </div>
+
+    <div id="policyModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 style="color: var(--primary-yellow);">Course Policies</h2>
+            <p><strong>Subscription:</strong> Professional Python Journey is a recurring monthly subscription.</p>
+            <p><strong>Refunds:</strong> 7-day money-back guarantee for new students.</p>
+            <p><strong>Indentation Note:</strong> In list comprehensions, indentation is not required as the logic is contained within brackets <code>[]</code>.</p>
+        </div>
+    </div>
+
+    <script>
+        function openModal() { document.getElementById("policyModal").style.display = "flex"; }
+        function closeModal() { document.getElementById("policyModal").style.display = "none"; }
+        window.onclick = function(e) { if(e.target == document.getElementById("policyModal")) closeModal(); }
+    </script>
+</body>
+</html>
